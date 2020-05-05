@@ -11,49 +11,44 @@ import Modal from "./Modal";
 // import assets
 import image from "../assets/icons/home.svg";
 
-export default class Signup extends Component {
+export default class Signin extends Component {
   constructor(props) {
     super(props);
-    // grab user email and password from form
+    // grab user email and password in form
     this.email = React.createRef();
     this.password = React.createRef();
   }
 
   state = {
-    isSignedUp: false,
+    isSignedIn: false,
     showModal: false,
+    alert: false,
     user: {},
   };
 
   // form submission function
   handleForm = (e) => {
     e.preventDefault();
-    // post new user data
-    axios
-      .post("http://localhost:8080/users", {
-        email: this.email.current.value,
-        password: this.password.current.value,
-      })
-      .then((res) => {
-        console.log(res.data);
-        let found = res.data.filter((user) => {
-          if (
-            user.email === this.email.current.value &&
-            user.password === this.password.current.value
-          ) {
-            return user;
-          }
-        });
-        if (found) {
-          this.setState({
-            user: found,
-            isSignedUp: true,
-            showModal: true,
-          });
-        } else {
-          alert("Sign up unsuccessful");
+    // pull all users data
+    axios.get("http://localhost:8080/users").then((res) => {
+      let found = res.data.some((user) => {
+        if (
+          user.email === this.email.current.value &&
+          user.password === this.password.current.value
+        ) {
+          return user;
         }
       });
+      if (found) {
+        this.setState({
+          user: found,
+          isSignedIn: true,
+          showModal: true,
+        });
+      } else {
+        alert("User and password are not correct");
+      }
+    });
   };
 
   render() {
@@ -178,7 +173,7 @@ export default class Signup extends Component {
                   color: #fff;
                 `}
               >
-                Sign up
+                Sign in
               </h5>
             </button>
           </form>
