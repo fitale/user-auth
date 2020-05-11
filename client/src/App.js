@@ -6,13 +6,14 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Profile from "./components/Profile";
+import Home from "./components/Home";
 export default class App extends Component {
   render() {
     return (
       <Router>
         <Header />
         <Switch>
-          <Route path="/" exact />
+          <Route path="/" component={Home} exact />
           <Route path="/signup" component={Signup} exact />
           <Route path="/signin" component={Signin} exact />
           <Route path="/:id" component={Profile} exact />

@@ -21,9 +21,14 @@ export default class Header extends Component {
         >
           <NavLink
             to="/"
+            exact
             className={css`
               text-decoration: none;
             `}
+            activeStyle={{
+              textDecoration: "underline",
+              textDecorationColor: "red",
+            }}
           >
             <h1
               className={css`
@@ -49,6 +54,10 @@ export default class Header extends Component {
               className={css`
                 text-decoration: none;
               `}
+              activeStyle={{
+                textDecoration: "underline",
+                textDecorationColor: "red",
+              }}
             >
               <h2
                 className={css`
@@ -71,8 +80,8 @@ export default class Header extends Component {
                 text-decoration: none;
               `}
               activeStyle={{
-                fontWeight: "bold",
                 textDecoration: "underline",
+                textDecorationColor: "red",
               }}
             >
               <h2
